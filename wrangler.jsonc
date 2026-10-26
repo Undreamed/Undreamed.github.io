@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "codex-cloud-test",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-26",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "none"
+  }
+}

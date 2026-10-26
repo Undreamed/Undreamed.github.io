@@ -1,0 +1,34 @@
+name: Bootstrap dependency lock
+
+on:
+  push:
+    branches:
+      - setup/cloud-playground-monorepo
+
+permissions:
+  contents: write
+
+jobs:
+  lock-and-verify:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.21.0
+      - name: Generate the lock with the pinned npm version
+        run: |
+          npm install --global npm@11.19.1
+          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
+      - name: Verify tests and project build on a hosted runner
+        run: |
+          npm ci --no-audit --no-fund
+          npm run verify
+      - name: Commit the generated lockfile
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add package-lock.json
+          git commit -m "chore: lock build dependencies"
+          git push
