@@ -1,4 +1,0 @@
-name = "codex-cloud-test"
-main = "src/index.js"
-compatibility_date = "2026-10-26"
-workers_dev = true
