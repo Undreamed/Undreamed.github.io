@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import { test } from "node:test";
 import { handleRequest } from "../worker/index.js";
+
+const wranglerConfig = JSON.parse(
+  await readFile(new URL("../wrangler.jsonc", import.meta.url), "utf8"),
+);
 
 function mockAssets(resolveAsset) {
   const requested = [];
@@ -15,6 +20,10 @@ function mockAssets(resolveAsset) {
     },
   };
 }
+
+test("the bare smoke URL is routed through the Worker before assets", () => {
+  assert.deepEqual(wranglerConfig.assets.run_worker_first, ["/ok"]);
+});
 
 test("the smoke URL returns the exact plain-text response", async () => {
   const response = await handleRequest(
@@ -37,9 +46,9 @@ test("the root redirects to the smoke project", async () => {
   assert.equal(response.headers.get("location"), "https://playground.example/ok/");
 });
 
-test("a deep browser route serves its project's index and keeps the query", async () => {
+test("a deep browser route fetches the canonical project URL and keeps the query", async () => {
   const assets = mockAssets((url) =>
-    url.pathname === "/pong/index.html"
+    url.pathname === "/pong/"
       ? new Response("Pong app")
       : new Response("Not Found", { status: 404 }),
   );
@@ -53,7 +62,7 @@ test("a deep browser route serves its project's index and keeps the query", asyn
 
   assert.equal(await response.text(), "Pong app");
   assert.deepEqual(assets.requested, [
-    { pathname: "/pong/index.html", search: "?seed=42" },
+    { pathname: "/pong/", search: "?seed=42" },
   ]);
 });
 
