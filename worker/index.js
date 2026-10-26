@@ -17,7 +17,7 @@ export async function handleRequest(request, env) {
   }
 
   if (url.pathname === "/") {
-    return Response.redirect(new URL("/ok/", url), 302);
+    return new Response("OK", { headers: TEXT_HEADERS });
   }
 
   if (!["GET", "HEAD"].includes(request.method)) {
