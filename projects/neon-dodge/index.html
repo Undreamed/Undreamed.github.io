@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b101d">
+    <title>Neon Dodge · Cloud Arcade</title>
+  </head>
+  <body>
+    <main>
+      <header><a href="/neon-dodge/">CLOUD<span>ARCADE</span></a><span class="tag">EXPERIMENT 001</span></header>
+      <section class="intro"><p class="eyebrow">KLEINES SPIEL. GROSSER REFLEX.</p><h1>NEON <span>DODGE</span></h1><p>Bleib in Bewegung. Weiche aus. Schlag deinen Rekord.</p></section>
+      <section class="arcade" aria-label="Neon Dodge Spiel">
+        <div class="stats"><div>PUNKTE <strong id="score">0000</strong></div><div>REKORD <strong id="best">0000</strong></div><button id="pause" disabled aria-label="Spiel pausieren">Pause</button></div>
+        <div class="stage">
+          <canvas id="game" width="480" height="560" aria-label="Spielfeld: bewege dein türkisfarbenes Schiff und weiche pinken Hindernissen aus"></canvas>
+          <div id="overlay" class="overlay"><div class="symbol">◇</div><p class="eyebrow" id="status">BEREIT, PILOT?</p><h2 id="title">Wie lange hältst du durch?</h2><p id="description">Steuere dein Schiff durch den Neonregen.<br>Mit der Zeit wird es schneller.</p><button id="start" class="primary">Spiel starten <span>↗</span></button></div>
+        </div>
+        <footer><span><i></i> PFEILTASTEN / A · D</span><span>ODER MIT DEM FINGER ZIEHEN</span></footer>
+      </section>
+      <p class="note" id="announcement" aria-live="polite">Ein Browsergame-Prototyp. Gebaut und getestet in der Cloud.</p>
+    </main>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
