@@ -22,6 +22,8 @@ Use `packages/*` for code shared by projects. Keep backend code in the Worker an
 
 Cloudflare Workers Builds installs dependencies and runs `npm run verify` for branch previews and production commits. A pull request gets a preview URL. Merging to `master` triggers the production deployment. No per-project Cloudflare setup is required.
 
+The Worker health routes `/ok` and `/_health` return plain-text `OK`.
+
 For Codex Cloud, create and publish one cloud environment for this repository and use `scripts/codex-cloud-setup.sh` as its install script. The script installs dependencies and runs the same tests and build used by Cloudflare Builds. No Cloudflare credential is needed in that environment.
 
 ## Free-tier limits

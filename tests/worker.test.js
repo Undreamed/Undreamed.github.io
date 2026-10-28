@@ -36,14 +36,15 @@ test("the smoke URL returns the exact plain-text response", async () => {
   assert.equal(await response.text(), "OK");
 });
 
-test("the root redirects to the smoke project", async () => {
+test("the root returns the exact plain-text OK response", async () => {
   const response = await handleRequest(
     new Request("https://playground.example/"),
     {},
   );
 
-  assert.equal(response.status, 302);
-  assert.equal(response.headers.get("location"), "https://playground.example/ok/");
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "text/plain; charset=utf-8");
+  assert.equal(await response.text(), "OK");
 });
 
 test("a deep browser route fetches the canonical project URL and keeps the query", async () => {

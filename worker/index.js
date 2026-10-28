@@ -35,7 +35,7 @@ export async function handleRequest(request, env) {
   }
 
   // Fetch the canonical project URL; the asset router resolves its index.html.
-  const fallbackUrl = new URL(`/${match[1]}/`, url);
+  const fallbackUrl = new URL("/" + match[1] + "/", url);
   fallbackUrl.search = url.search;
 
   const response = await env.ASSETS.fetch(new Request(fallbackUrl, request));
